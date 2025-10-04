@@ -2,22 +2,26 @@ import { colors } from '@/constants/colors';
 import icons from '@/constants/icons';
 import images from '@/constants/images';
 import { AuthContext } from '@/context/auth-context';
-import { login } from '@/services/auth';
-import { useRouter } from 'expo-router';
-import React, { useContext } from 'react';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SignIn = () => {
-  const router = useRouter();
-  const { setSession } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   
   const handleLogin = async () => {
-    const session = await login();
-    if (session) {
-      setSession(session); 
-      router.replace('/explore'); 
-    } 
+    if (isLoading) return;
+    
+    setIsLoading(true);
+    try {
+      await login();
+    } catch (error) {
+      Alert.alert('Error', 'Failed to sign in. Please try again.');
+      console.error('Sign in error:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   return (

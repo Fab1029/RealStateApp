@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TabIcon = ({focused, icon, title}: Props) => (
-  <View style={{flexDirection: 'column', justifyContent: "center", alignItems: 'center', flex:1, marginTop: 15}}>
+  <View style={{flexDirection: 'column', justifyContent: "center", alignItems: 'center', flex:1, marginTop: 12}}>
     <Image
       source={icon}
       tintColor={focused ? "#0061ff" : "#666876"}
@@ -85,7 +85,3 @@ const styles = StyleSheet.create({
     color: colors.primary[300]
   }
 })
-
-
-/*import { AuthContext } from '@/context/auth-context';
-import { useContext } from 'react';*/
